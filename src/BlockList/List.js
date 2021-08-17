@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, Col } from 'react-bootstrap';
 import swal from 'sweetalert';
 
 
@@ -17,17 +18,16 @@ const List = ({ blo }) => {
             })
     }
     return (
-        <div className="col-md-4 g-5">
+        <Col md={4} className="g-5">
             <div className="shadow-lg p-4">
-                <h3>{blo.blockedName}</h3>
-                <h6>{blo.blockedEmail}</h6>
-                <div className="d-flex mt-4">
-                <button className="btn btn-info" onClick={()=>handleUnblock(blo._id)}>Unblock</button>
-                <button style={{marginLeft:"50px"}}  className="btn btn-info">Unblock All</button>
-                </div>
-               
+            <h1>{blo}</h1>
+            <h4>dfg{blo.index}</h4>
+            <div className="d-flex mt-4">
+            {/* <Button className="btn btn-info" onClick={()=>handleUnblock(blo.index)}>Unblock</Button> */}
+            <Button style={{marginLeft:"50px"}}  className="btn btn-info">Unblock All</Button>
             </div>
-        </div>
+            </div>
+        </Col>
     );
 };
 

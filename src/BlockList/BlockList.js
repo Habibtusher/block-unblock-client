@@ -2,42 +2,40 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../App';
 import List from './List';
 import { useHistory } from 'react-router-dom';
+import { Button, Container, Row } from 'react-bootstrap';
 const BlockList = () => {
     const history = useHistory()
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    const [block, setBlock] = useState([]);
-
-    const getDecodedUser = () => {
-        const user = localStorage.getItem('user');
-        const userData = JSON.parse(user)
-        if (!user) {
-            return {};
-        }
-        return (userData);
-    }
-    const data = getDecodedUser();
-  
-    !loggedInUser.email ? setLoggedInUser(data) : console.log("object");
+    const [block, setBlock] = useState({});
 
     const email = loggedInUser.email;
-    console.log("from block",loggedInUser.email);
+    console.log("logged in users email",email);
     useEffect(() => {
-        fetch(`http://localhost:5050/block/block-list/${email}`)
+        fetch(`http://localhost:5050/auth/all-user/${email}`)
             .then(res => res.json())
-            .then(data => setBlock(data))
-    }, [email])
-    console.log(block);
+            .then(data => setBlock(data.blockedUser))
+    },[])
+console.log("blocked received",block);
+
+// const email = loggedInUser.email;
+//     console.log("logged in users email",email);
+//     useEffect(() => {
+//         fetch(`http://localhost:5050/block/all-user/${email}`)
+//             .then(res => res.json())
+//             .then(data => setBlock(data.blockedUser))
+//     },[])
+// console.log("blocked received",block);
     return (
-        <div className="container mt-5">
-            <button onClick={()=>history.push("/")}>Home</button>
+        <Container className="mt-5">
+             <Button onClick={()=>history.push("/")}>Home</Button>
             <h2 className="text-center ">Block List</h2>
-            <div className="row">
-                {
+            <Row>
+            {
                     block.length &&
                     block.map(blo => <List blo={blo}></List>)
-                }
-            </div>
-        </div>
+            }
+            </Row>
+        </Container>
     );
 };
 

@@ -9,6 +9,7 @@ import swal from 'sweetalert';
 import { UserContext } from './../App';
 import firebaseConfig from './firebase.Config';
 import FacebookLogin from 'react-facebook-login';
+import { Button } from 'react-bootstrap';
 if (firebase.apps.length === 0) {
     firebase.initializeApp(firebaseConfig);
 }
@@ -95,8 +96,14 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        setLoggedInUser(data);
-                        setUserInfo(data)
+                        const newU = {
+                            email: data.email,
+                            name: data.name,
+                            username: data.username
+                        }
+                        setLoggedInUser(newU);
+                        setUserInfo(newU)
+                        console.log("after log in",loggedInUser);
                         history.push("/")
                     })
 
@@ -151,13 +158,13 @@ const Login = () => {
                             <Link className="a" to="/">Forget Password</Link>
                             <Link className="a" to="/register">Sign Up</Link>
                         </div>
-                        <button className="btn mt-4 loginBtn" style={{ width: "305px" }} onClick={loginForm}>Login</button>
+                        <Button className="btn mt-4 loginBtn" style={{ width: "305px" }} onClick={loginForm}>Login</Button>
                         <h6 className="mt-3 text-center">Continue with ?</h6>
                         <div className="d-flex mt-3 social" >
-                            <button className="btn" onClick={handleFbSignIn}> Facebook</button>
+                            <Button className="btn" onClick={handleFbSignIn}> Facebook</Button>
                            
-                            <button style={{ marginLeft: "10px" }} onClick={handleGoogleSignIn} className="btn"> Google</button>
-                            <button style={{ marginLeft: "10px" }} className="btn"> LinkedIn</button>
+                            <Button style={{ marginLeft: "10px" }} onClick={handleGoogleSignIn} className="btn"> Google</Button>
+                            <Button style={{ marginLeft: "10px" }} className="btn"> LinkedIn</Button>
                         </div>
                     </div>
                     <div className="col-md-6">

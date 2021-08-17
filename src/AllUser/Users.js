@@ -3,13 +3,15 @@ import { UserContext } from '../App';
 import img from "../avatar.svg"
 import { swal } from 'sweetalert';
 import { useHistory } from 'react-router-dom';
+import { Button, Col, Row } from 'react-bootstrap';
+import { useEffect } from 'react';
 const Users = ({ profile }) => {
     const history = useHistory();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+   
+
     const blockUser = (name, email) => {
-
-        console.log("block", name, loggedInUser.email);
-
         const blockedUser = {
             blockedName: name,
             blockedEmail: email,
@@ -24,20 +26,41 @@ const Users = ({ profile }) => {
             body: JSON.stringify(blockedUser)
         })
             .then(res => {
-            
+
                 console.log(res);
             })
 
     }
+
+    const testBlock = bEmail => {
+        const email = loggedInUser.email
+        console.log("object", email);
+        const bb = {
+            bEmail: bEmail
+        }
+        fetch(`http://localhost:5050/auth/add-block/${email}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bb)
+        }).then(res => {
+            console.log("server");
+        })
+            .catch(err => {
+                console.log(err);
+            })
+    }
     return (
-        <div className="col-md-4 mt-3 g-5">
-            <div className="shadow p-3 text-center">
+        <Col md={4} className="g-5">
+            <div className="shadow-lg p-3">
                 <img style={{ width: "100px" }} src={img} alt="" />
-                <h3>{profile.name}</h3>
+                <h4>{profile.name}</h4>
                 <h5>{profile.email}</h5>
-                <button onClick={() => blockUser(profile.name, profile.email)} className="btn btn-danger">Block</button>
+                <Button onClick={() => blockUser(profile.name, profile.email)}> Block </Button>
+                <Button onClick={() => testBlock(profile.email)}> Block Ok</Button>
             </div>
-        </div>
+        </Col>
     );
 };
 

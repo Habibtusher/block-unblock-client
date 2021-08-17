@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container, Row } from 'react-bootstrap';
 import Users from './Users';
 
 const AllUser = () => {
@@ -10,13 +11,13 @@ const AllUser = () => {
             .then(data => setUser(data))
     }, [])
     return (
-       <div className="container">
-            <div className="row">
+        <Container>
+            <Row>
             {
                 user.map(profile => <Users profile={profile}></Users>)
             }
-        </div>
-       </div>
+            </Row>          
+        </Container>
     );
 };
 

@@ -5,32 +5,24 @@ import BlockList from './../BlockList/BlockList';
 import AllUser from './../AllUser/AllUser';
 import { useHistory } from 'react-router-dom';
 import swal from 'sweetalert';
+import { Button } from 'react-bootstrap';
 
 const Home = () => {
     const history = useHistory();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    console.log("logged home", loggedInUser);
+
     const handleBlock = () => {
-       
+
         history.push("/blockList")
     }
-
-    const getDecodedUser = () => {
-        const user = localStorage.getItem('user');
-        const userData = JSON.parse(user)
-        if (!user) {
-            return {};
-        }
-        return (userData);
-    }
-    const data = getDecodedUser();
+ 
     return (
         <div>
             {
-                loggedInUser.email || data.email?
+                loggedInUser.email ?
                     <div className="container mt-5">
                         <div style={{ padding: "20px" }}>
-                            <button onClick={handleBlock} style={{ padding: "10px" }} className="btn btn-info">View Block List</button>
+                            <Button onClick={handleBlock} style={{ padding: "10px" }} className="btn btn-info">View Block List</Button>
                         </div>
                         <AllUser />
                     </div>
