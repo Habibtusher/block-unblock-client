@@ -60,7 +60,7 @@ const Login = () => {
                     // console.log(data);
                     setLoggedInUser(data);
                     setUserInfo(data)
-                    console.log(loggedInUser);
+                    console.log("form",loggedInUser);
                     history.push("/")
                     return swal(`Successfully Log In`, `Welcome`, "success")
                     // .then(res => history.push(from));
@@ -97,6 +97,7 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         const newU = {
+                            blockList:data.blockList,
                             email: data.email,
                             name: data.name,
                             username: data.username

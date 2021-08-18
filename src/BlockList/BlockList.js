@@ -7,33 +7,24 @@ const BlockList = () => {
     const history = useHistory()
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [block, setBlock] = useState({});
-
+    const bbb = block?.blockList;
     const email = loggedInUser.email;
-    console.log("logged in users email",email);
+    console.log("logged in users email", email);
     useEffect(() => {
-        fetch(`http://localhost:5050/auth/all-user/${email}`)
+        fetch(`http://localhost:5050/auth/all-block/${email}`)
             .then(res => res.json())
-            .then(data => setBlock(data.blockedUser))
-    },[])
-console.log("blocked received",block);
+            .then(data => setBlock(data[0]))
+    }, [email])
 
-// const email = loggedInUser.email;
-//     console.log("logged in users email",email);
-//     useEffect(() => {
-//         fetch(`http://localhost:5050/block/all-user/${email}`)
-//             .then(res => res.json())
-//             .then(data => setBlock(data.blockedUser))
-//     },[])
-// console.log("blocked received",block);
     return (
         <Container className="mt-5">
-             <Button onClick={()=>history.push("/")}>Home</Button>
+            <Button onClick={() => history.push("/")}>Home</Button>
             <h2 className="text-center ">Block List</h2>
             <Row>
-            {
-                    block.length &&
-                    block.map(blo => <List blo={blo}></List>)
-            }
+
+                {
+                    bbb?.map(blo => <List blo={blo}></List>)
+                }
             </Row>
         </Container>
     );

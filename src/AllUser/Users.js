@@ -9,32 +9,8 @@ const Users = ({ profile }) => {
     const history = useHistory();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
-   
-
-    const blockUser = (name, email) => {
-        const blockedUser = {
-            blockedName: name,
-            blockedEmail: email,
-            email: loggedInUser.email,
-        }
-        const url = 'http://localhost:5050/block/blocks'
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(blockedUser)
-        })
-            .then(res => {
-
-                console.log(res);
-            })
-
-    }
-
     const testBlock = bEmail => {
         const email = loggedInUser.email
-        console.log("object", email);
         const bb = {
             bEmail: bEmail
         }
@@ -44,7 +20,9 @@ const Users = ({ profile }) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(bb)
-        }).then(res => {
+        })
+        .then(res => {
+        
             console.log("server");
         })
             .catch(err => {
@@ -57,8 +35,8 @@ const Users = ({ profile }) => {
                 <img style={{ width: "100px" }} src={img} alt="" />
                 <h4>{profile.name}</h4>
                 <h5>{profile.email}</h5>
-                <Button onClick={() => blockUser(profile.name, profile.email)}> Block </Button>
-                <Button onClick={() => testBlock(profile.email)}> Block Ok</Button>
+              
+                <Button onClick={() => testBlock(profile.email)}> Block</Button>
             </div>
         </Col>
     );
