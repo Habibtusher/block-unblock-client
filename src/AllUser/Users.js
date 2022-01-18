@@ -34,8 +34,7 @@ const Users = ({ profile }) => {
             <div className="shadow-lg p-3">
                 <img style={{ width: "100px" }} src={img} alt="" />
                 <h4>{profile.name}</h4>
-                <h5>{profile.email}</h5>
-              
+                <h5>{profile.email}</h5>          
                 <Button onClick={() => testBlock(profile.email)}> Block</Button>
             </div>
         </Col>
